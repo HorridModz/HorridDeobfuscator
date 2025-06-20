@@ -1,0 +1,8 @@
+/dist/
+/build/
+/release/
+/release.zip
+/.idea/
+/venv/
+/main.spec
+config.json
