@@ -1,6 +1,7 @@
 # HorridDeobfuscator
 
-> [!IMPORTANT] This tool deobfuscates *class names* by comparing them with a previous, unobfuscated version. It will not deobfuscate other symbols (such as method names) or decompile code. If you do not have an unobfuscated version of your game, this will not help you.
+> [!IMPORTANT]
+> This tool deobfuscates *class names* by comparing them with a previous, unobfuscated version. It will not deobfuscate other symbols (such as method names) or decompile code. If you do not have an unobfuscated version of your game, this will not help you.
 
 A class name deobfuscator for IL2CPP games, similar to [Beebyte-Deobfuscator](https://github.com/OsOmE1/Beebyte-Deobfuscator). It takes in an on obfuscated dump.cs file and an earlier unobfuscated version, and uses differential analysis to compare classes and generate a mapping of unobfuscated class names to obfuscated ones. It is lightning-fast, able to **deobfuscate an entire game (9000 classes) in 
 This is taken from [Il2cppWorkshop](https://github.com/HorridModz/Il2cppWorkshop), a super shitty and unfinished "modding megatool" that ended up having class name deobfuscation as its main feature (the other usable features, including my glorious mod menu installer, are also sitting on my computer as projects I haven't ever gotten around to publishing).
@@ -12,7 +13,8 @@ After hours upon hours of cringing at my horrendous old code, I have done a pret
 
 # Usage
 
-> [!WARNING] As is described above, this tool is built on old, crappy code that I made years ago and may still contain bugs. If it doesn't work, feel free to let me know what's going on (you can file an issue on this repository or reach out on Discord - `@horridmodz`. Also, the tool may produce false positives in its deobfuscation mappings, or fail to find the right class. Lastly, the tool often gives multiple results if it finds multiple similar classes (especially for smaller classes), which will require you to find the correct one either by trial and error or by manual inspection (there are sometimes obvious things - unique method signatures, default values in parameters, rarely used data types, string constants... which can make this task very easy). While this tool can suffice on its own, it is best used as a supplementary tool for those who already understand how to deobfuscate classes manually.
+> [!WARNING]
+> As is described above, this tool is built on old, crappy code that I made years ago and may still contain bugs. If it doesn't work, feel free to let me know what's going on (you can file an issue on this repository or reach out on Discord - `@horridmodz`. Also, the tool may produce false positives in its deobfuscation mappings, or fail to find the right class. Lastly, the tool often gives multiple results if it finds multiple similar classes (especially for smaller classes), which will require you to find the correct one either by trial and error or by manual inspection (there are sometimes obvious things - unique method signatures, default values in parameters, rarely used data types, string constants... which can make this task very easy). While this tool can suffice on its own, it is best used as a supplementary tool for those who already understand how to deobfuscate classes manually.
 
 In order to deobfuscate class names, you need an unobfuscated version of the game. Once you have obtained your
 unobfuscated and current version, dump both with [Il2cppDumper](https://github.com/Perfare/Il2CppDumper)
@@ -29,7 +31,8 @@ If you would like to make changes or improvements, feel free to edit the code an
 re-build using pyinstaller (`pyinstaller main.py --onefile`). Most of the logic is in `src\Utils.py`, while the driver code is in
 `main.py`. The code isn't very user-friendly, though.
 
-> [!IMOPORTANT] By default, this tool groups classes and other types by modifiers: public static classes will only be
+> [!IMOPORTANT]
+> By default, this tool groups classes and other types by modifiers: public static classes will only be
 > compared with other public static classes, private sealed with private sealed, etc. This is a tradeoff - it makes
 > things much faster, but may sacrifice accuracy in the rare case that a class's modifiers are changed. This can be
 > disabled with the`group_by_modifiers` setting. If it is disabled, class modifiers will not be considered at all (_they should be, but are not implemented at the moment_).
@@ -55,13 +58,15 @@ left blank
 - - Without include_scores: `BonusBankViewItem.UIFiller = ['万丐丅丝且与下七丙.丙丟丝丞万丘三丞丕']`
 - **trustnames**: Whether to assume that two classes or namespaces with the same name in each version are indeed the same. This should be enabled unless the game purposely scrambles names as a method of obfuscation.
 
-> [!NOTE] To reset settings to default, simply delete the `config.json` file.
+> [!NOTE]
+> To reset settings to default, simply delete the `config.json` file.
 
 #### Deobfuscation Weights
 
 You can also modify the weights of certain things, such as method data types and size of class (these weights are used to assign different importance to different factors; for example, the class's access modifiers are more important than individual methods). Here are all of these weights:
 
-> [!IMPORTANT] These weights were set by me, based on intuition. Deobfuscation is sort of a black box, unless you're willing to manually generate a big list of _correct_ unobfuscated-obfuscated mappings to test again, and that's a lot of work. I honestly have no idea if these weights are correct or make any sense; they were arrived by intuition and a bit of trial and error. Feel free to experiment with them!
+> [!IMPORTANT]
+> These weights were set by me, based on intuition. Deobfuscation is sort of a black box, unless you're willing to manually generate a big list of _correct_ unobfuscated-obfuscated mappings to test again, and that's a lot of work. I honestly have no idea if these weights are correct or make any sense; they were arrived by intuition and a bit of trial and error. Feel free to experiment with them!
 
 - **methodweight**: The weight per each method in a class (note that it must be an exact match, including params)
 - **fieldweight**: The weight per each field in a class
@@ -72,7 +77,8 @@ You can also modify the weights of certain things, such as method data types and
 **Example for size**: unobfuscated = 5 methods, 2 properties, and 10 fields -> size = **17**. Obfuscated = 4 methods, 1 property, and 3 fields -> size == **8**. <br>
 If `sizebenchmark` is **4** and `sizeweight` is `1`: There is a difference of 9 items between the two classes, so the penalty is incurred 9/4 (dropping the remainder), or **2** times, leading to a total penalty of **2**.
 
-> [!NOTE] This tool currently checks a depressing amount of factors, and as such, it has an underwhelming amount of customizable weights. Note that classes must match for _all modifiers_ (sealed, abstract, visibility, etc.) if _groupbymodifiers_ is true; if not, class modifiers will not be considered (_they should be, but are not implemented at the moment_).
+> [!NOTE]
+> This tool currently checks a depressing amount of factors, and as such, it has an underwhelming amount of customizable weights. Note that classes must match for _all modifiers_ (sealed, abstract, visibility, etc.) if _groupbymodifiers_ is true; if not, class modifiers will not be considered (_they should be, but are not implemented at the moment_).
 
 # Todo
 
