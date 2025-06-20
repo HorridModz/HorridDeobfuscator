@@ -6,3 +6,4 @@
 /venv/
 /main.spec
 config.json
+__pycache__/
