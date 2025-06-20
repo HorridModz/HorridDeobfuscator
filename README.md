@@ -20,13 +20,13 @@ In order to deobfuscate class names, you need an unobfuscated version of the gam
 unobfuscated and current version, dump both with [Il2cppDumper](https://github.com/Perfare/Il2CppDumper)
 or [Il2cppDumper-GUI](https://github.com/AndnixSH/Il2CppDumper-GUI). If you know the pattern that obfuscated class names
 follow, you can provide the tool a regex. This will greatly help with deobfuscation accuracy by removing non-obfuscated
-ames from the pool of potential matches. For example, Pixel Gun 3D's regex is
+names from the pool of potential matches. For example, Pixel Gun 3D's regex is
 `'[丕世东专丛三丐丄丗丈七丒上丘丟丁丝业丏一丙丌丂不下与万且丅丑丞丆年月日년월일시분초時时分秒]+'`; any classes in the
 obfuscated dump.cs that do not follow this naming pattern will be ignored.
 
 ### Running the Tool
 
-HorridDeobfuscator is available as an exe via PyInstaller - TODO: LINK
+HorridDeobfuscator is available as an exe via PyInstaller - download it [here](https://github.com/HorridModz/HorridDeobfuscator/releases/latest/download/release.zip).
 If you would like to make changes or improvements, feel free to edit the code and either run from python or
 re-build using pyinstaller (`pyinstaller main.py --onefile`). Most of the logic is in `src\Utils.py`, while the driver code is in
 `main.py`. The code isn't very user-friendly, though.
