@@ -31,7 +31,7 @@ If you would like to make changes or improvements, feel free to edit the code an
 re-build using pyinstaller (`pyinstaller main.py --onefile`). Most of the logic is in `src\Utils.py`, while the driver code is in
 `main.py`. The code isn't very user-friendly, though.
 
-> [!IMOPORTANT]
+> [!IMPORTANT]
 > By default, this tool groups classes and other types by modifiers: public static classes will only be
 > compared with other public static classes, private sealed with private sealed, etc. This is a tradeoff - it makes
 > things much faster, but may sacrifice accuracy in the rare case that a class's modifiers are changed. This can be
