@@ -140,8 +140,13 @@ def fileselect_dialog(dialog_func: Callable, **kwargs) -> str:
         sys.exit()
     return path
 
+if getattr(sys, 'frozen', False):
+    # Running as pyinstaller executable - find real location of exe
+    _configpath = os.path.join(os.path.dirname(sys.executable), "config.json")
+else:
+    # Running as pyton script
+    _configpath = os.path.join(os.path.dirname(__file__), "config.json")
 
-_configpath = os.path.join(os.path.dirname(__file__), "config.json")
 if __name__ == "__main__":
     _defaults = _config(unobfuscated_dumpcs="", output_file="", output_json=False, deobfuscate_classes=True,
                         deobfuscate_structs=True, deobfuscate_interfaces=True, deobfuscate_enums=True,
