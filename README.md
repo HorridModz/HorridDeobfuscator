@@ -82,6 +82,7 @@ If `sizebenchmark` is **4** and `sizeweight` is `1`: There is a difference of 9 
 
 # Todo
 
+- **HUGE improvement: make obfuscated type model first, then when building unobfuscated only replace names not in obfuscated (much more accurate than replacing names not in my lookup; also has benefit that sometimes not all of game's classes are obfuscated)**
 - Implement option to dynamically adjust tolerance in order to refine to as little results as possible (il2cppworkshop
 - technique); also make it so it can adjust up until at least one result is found
 - Replace class modifiers with more specific checks, each with its own weight (sealed, abstract, visibility, etc.)
